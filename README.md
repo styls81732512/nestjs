@@ -1,73 +1,122 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 保戶關係 API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
+## Running the service
 
 ```bash
-$ npm install
+# serve
+npm run start
+
+# run migration
+npm run migration-dev:run
 ```
 
-## Running the app
+### 目錄結構
 
-```bash
-# development
-$ npm run start
+- src
 
-# watch mode
-$ npm run start:dev
+  - core
+    - 相關 base class、database config、exception filter
+  - migrations
+    - master-migration
+      - 主庫執行的migration檔
+  - modules
+    - policyholders
+      - controllers
+        - admin // 後台controller
+      - dto
+      - entities
+      - enums
+      - models
+      - policyholders.module.ts
+      - policyholders.service.ts
 
-# production mode
-$ npm run start:prod
+- 文件位置: src/modules/policyholders/controllers/admin/policyholder-admin.controller.ts
+- 請求方式:
+  - GET
+  - content-type: application/json
+- 請求地址: /admin/policyholders/policyholder
+- 請求參數:
+
+```json
+{
+  "id": "1"
+}
 ```
 
-## Test
+- 返回結果:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```json
+{
+  "code": "00",
+  "data": {
+    "code": "1",
+    "name": "保戶1",
+    "registration_date": "2023-12-08T07:53:47.000Z",
+    "introducer_code": null,
+    "l": [
+      {
+        "code": "2",
+        "name": "保戶2",
+        "registration_date": "2023-12-08T07:53:52.000Z",
+        "introducer_code": "1"
+      },
+      {
+        "code": "4",
+        "name": "保戶4",
+        "registration_date": "2023-12-08T07:54:02.000Z",
+        "introducer_code": "2"
+      },
+      {
+        "code": "6",
+        "name": "保戶6",
+        "registration_date": "2023-12-08T08:35:31.000Z",
+        "introducer_code": "2"
+      },
+      {
+        "code": "8",
+        "name": "保戶8",
+        "registration_date": "2023-12-08T08:35:39.000Z",
+        "introducer_code": "4"
+      },
+      {
+        "code": "9",
+        "name": "保戶9",
+        "registration_date": "2023-12-08T08:35:44.000Z",
+        "introducer_code": "4"
+      }
+    ],
+    "r": [
+      {
+        "code": "3",
+        "name": "保戶3",
+        "registration_date": "2023-12-08T07:53:57.000Z",
+        "introducer_code": "1"
+      },
+      {
+        "code": "5",
+        "name": "保戶5",
+        "registration_date": "2023-12-08T07:54:06.000Z",
+        "introducer_code": "3"
+      },
+      {
+        "code": "7",
+        "name": "保戶7",
+        "registration_date": "2023-12-08T08:35:35.000Z",
+        "introducer_code": "3"
+      },
+      {
+        "code": "10",
+        "name": "保戶10",
+        "registration_date": "2023-12-08T08:35:48.000Z",
+        "introducer_code": "5"
+      },
+      {
+        "code": "11",
+        "name": "保戶11",
+        "registration_date": "2023-12-08T08:35:54.000Z",
+        "introducer_code": "5"
+      }
+    ]
+  }
+}
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
