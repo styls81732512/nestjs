@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { masterDataSourceConfig } from './core/databases/configs/master-data-source.config';
 import { PolicyholdersModule } from './modules/policyholders/policyholders.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { PolicyholdersModule } from './modules/policyholders/policyholders.modul
       useFactory: () => masterDataSourceConfig,
       inject: [ConfigService],
     }),
-    PolicyholdersModule
+    PolicyholdersModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [],
